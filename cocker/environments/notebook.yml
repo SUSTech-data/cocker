@@ -1,0 +1,10 @@
+includes:
+  - base
+channels:
+  - conda-forge
+dependencies:
+  - jupyter_contrib_nbextensions
+  - notebook=6.5
+  - ipywidgets
+  - jupytext
+  - jupyter-cache

@@ -1,0 +1,3 @@
+dependencies:
+  - faiss-gpu
+  - mkl=2021

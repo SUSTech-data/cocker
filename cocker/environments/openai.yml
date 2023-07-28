@@ -1,0 +1,7 @@
+includes:
+  - base
+dependencies:
+  - pip:
+    - openai
+    - tiktoken
+    - tenacity

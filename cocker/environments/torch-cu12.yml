@@ -1,0 +1,13 @@
+includes:
+  - base
+channels:
+  - nvidia/label/cuda-12.1.1
+  - nvidia
+  - pytorch
+  - conda-forge
+dependencies:
+  - pytorch
+  - torchvision
+  - torchaudio
+  - cuda
+  - pytorch-cuda=12.1

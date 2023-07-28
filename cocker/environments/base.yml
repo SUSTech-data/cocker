@@ -1,0 +1,19 @@
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - ca-certificates
+  - pynvim
+  - certifi
+  - openssl
+  - ipykernel
+  - ipywidgets
+  - python=3.10
+  - pip
+  - nbformat
+  - snoop
+  # - submitit
+  - scikit-learn
+  - protobuf
+  - poetry
+  - twine

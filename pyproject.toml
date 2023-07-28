@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "cocker"
+version = "0.1.0"
+description = "a lightweight library that allow you to build deep learning environment like docker in conda(mamba)."
+authors = ["fecet <xiezej@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.6"
+absl-py = "^1.4.0"
+conda-merge = "*"
+tqdm = "*"
+"ruamel.yaml" = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+cocker = "cocker.main:absl_main"

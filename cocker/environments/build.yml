@@ -1,0 +1,16 @@
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - compilers
+  - ca-certificates
+  - certifi
+  - openssl
+  - ninja
+  - glib
+  - sysroot_linux-64==2.17
+  - cmake
+  - curl
+  - git
+  # - xorg-libx11
+  # - libaio

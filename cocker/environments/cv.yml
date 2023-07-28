@@ -1,0 +1,9 @@
+dependencies:
+  - conda-forge:ffmpeg
+  - opencv
+  - yt-dlp
+  - pip:
+      - ffmpegio
+      - s3fs
+      - minio
+      - imageio[ffmpeg]

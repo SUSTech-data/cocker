@@ -1,0 +1,12 @@
+includes:
+  - base
+channels:
+  - pytorch
+dependencies:
+  - gcc==9.4.0
+  - pytorch=2.1
+  - pip:
+      - aioprometheus[starlette]
+      - fastapi
+      - uvicorn[standard]
+      - ray
