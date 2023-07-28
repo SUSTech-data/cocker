@@ -1,0 +1,7 @@
+includes:
+  - base
+  - notebook
+dependencies:
+  - ruamel.yaml
+  - conda-merge
+  - asbl-py

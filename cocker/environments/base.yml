@@ -1,0 +1,10 @@
+channels:
+  - conda-forge
+dependencies:
+  - ca-certificates
+  - certifi
+  - openssl
+  - ipykernel
+  - ipywidgets
+  - python=3.10
+  - pip

@@ -1,0 +1,21 @@
+dependencies:
+  - pip:
+    - git+https://github.com/huggingface/transformers.git
+    - git+https://github.com/huggingface/diffusers.git
+    - datasets
+    - evaluate
+    - peft
+    - bitsandbytes
+    - safetensors
+    - sentencepiece
+    - protobuf
+    - wandb
+    - ray[all]
+    - loralib
+    - openai
+    - tenacity
+    - sympy
+    - thefuzz[speedup]
+    - ml_collections
+    - absl-py
+    - cpm_kernels

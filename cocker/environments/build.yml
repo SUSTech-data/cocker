@@ -1,0 +1,11 @@
+channels:
+  - conda-forge
+dependencies:
+  - compilers
+  - libaio
+  - ca-certificates
+  - certifi
+  - openssl
+  - xorg-libx11
+  - ninja
+  - glib
