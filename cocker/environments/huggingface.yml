@@ -1,0 +1,17 @@
+includes:
+  - base
+dependencies:
+  - pip:
+    - transformers[sentencepiece]
+    - diffusers
+    - datasets
+    - evaluate
+    - peft
+    - bitsandbytes
+    - safetensors
+    - accelerate
+    - tensorboard
+    - wandb
+    - cpm_kernels
+    - dm-tree
+    - gradio

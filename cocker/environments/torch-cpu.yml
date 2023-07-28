@@ -1,0 +1,10 @@
+includes:
+  - base
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - cpuonly 
+  - pytorch 
+  - torchvision 
+  - torchaudio 

@@ -1,0 +1,7 @@
+includes:
+  - base
+channels:
+  - conda-forge
+dependencies:
+  - nvidia::cuda
+  - jax

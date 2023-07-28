@@ -1,0 +1,9 @@
+includes:
+  - base
+channels:
+  - conda-forge
+dependencies:
+  - mpi4py
+  - ipykernel=6.28
+  - pip:
+      - git+https://github.com/google/ml_collections.git

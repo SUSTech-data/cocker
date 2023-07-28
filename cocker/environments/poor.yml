@@ -1,0 +1,33 @@
+includes:
+  - notebook
+  - base
+  - build
+channels:
+  - conda-forge
+  - dnachun
+dependencies:
+  - ripgrep
+  - mamba
+  - zsh
+  - rust
+  - subversion
+  - fzf
+  - ranger-fm
+  - fd-find
+  - lazygit
+  - neofetch
+  - dust
+  - duf
+  - tmux
+  - zoxide
+  - exa
+  - bat
+  - nvtop
+  - nodejs
+  - openssh
+  - asciinema
+  - pv
+  - jq
+  - yarn
+  - tree
+  - atuin
