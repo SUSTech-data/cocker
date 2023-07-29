@@ -1,10 +1,12 @@
 channels:
   - conda-forge
 dependencies:
-  - transformers
-  - diffusers
-  - datasets
-  - evaluate
-  - peft
-  - bitsandbytes
-  - safetensors
+  - pip:
+    - transformers
+    - diffusers
+    - datasets
+    - evaluate
+    - peft
+    - bitsandbytes
+    - safetensors
+    - accelerate
