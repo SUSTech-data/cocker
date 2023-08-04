@@ -1,24 +1,19 @@
-# %%
-# %cd ~/codes/idea/cocker/cocker
-# %ls
-
-# %%
-
 from conda_merge import *
 from ruamel import yaml
-import subprocess
 from pathlib import Path
 
 from absl import app, flags, logging
+import os
+import sys
 
 
 # %%
 
 
-ENV = dict
+Environment = dict
 
 
-def merge_envs(env_definitions: list[ENV], remove_builds=True) -> ENV:
+def merge_envs(env_definitions: list[Environment], remove_builds=True) -> Environment:
     """Main script entry point.
 
     `args` is a Namescpace object, `args.files` should be a list of file paths
@@ -53,65 +48,61 @@ def merge_envs(env_definitions: list[ENV], remove_builds=True) -> ENV:
     return unified_definition
 
 
-def pretty_dump(env_definition: ENV, stream):
+def pretty_dump(env_definition: Environment, stream):
     yml = yaml.YAML()
     yml.indent(sequence=4, offset=2)
     yml.dump(env_definition, stream)
 
 
-def parse_cocker(
-    input_file: Path, output_file: Path = Path("environment.yml"), dry_run: bool = False
-):
-    with open(input_file, "r") as f:
-        data = yaml.load(f, yaml.RoundTripLoader)
+try:
+    ENV_PATH = Path(__file__).parent / "environments"
+except Exception as e:
+    ENV_PATH = Path().parent / "environments"
 
-    try:
-        env_path = Path(__file__).parent / "environments"
-    except Exception as e:
-        env_path = Path().parent / "environments"
+USER_ENV_PATH = Path(os.getenv("XDG_CONFIG_HOME", None) or Path.home()) / ".cocker"
 
-    CONDA_ENVS = [f.stem for f in env_path.glob("*")]
-    logging.debug(f"CONDA_ENVS: {CONDA_ENVS}")
-    merge_yamls = []
-    yamls: list[str] = data.pop("includes", ["base"])
+CONDA_ENVS = {f.stem: f for f in ENV_PATH.glob("*.yml")}
+CONDA_ENVS.update({f.stem: f for f in USER_ENV_PATH.glob("*.yml")})
+
+
+def read_yml(yaml_file: str) -> Environment:
+    if yaml_file.endswith(".yaml") or yaml_file.endswith(".yml"):
+        assert Path(yaml_file).exists(), f"File not found: {yaml_file}"
+        logging.info(f"Merge env {yaml_file}")
+        return read_file(yaml_file)
+    elif yaml_file.startswith("http") or yaml_file.startswith("https"):
+        # TODO
+        raise NotImplementedError
+    else:
+        assert yaml_file in CONDA_ENVS, (
+            f"Conda env not found: {yaml_file}"
+            f"Predefined envs including: {CONDA_ENVS}"
+        )
+        # merge_yamls.append(ENV_PATH / f"{yaml_file}.yml")
+        logging.info(f"Merge env {yaml_file} from predefined envs")
+
+        return read_file(ENV_PATH / f"{yaml_file}.yml")
+
+
+def get_environments(data: Environment) -> list[Environment]:
+    yamls: list[str] = data.pop("includes", [])
+    env_definitions = [data]
     for yaml_file in yamls:
-        if yaml_file.endswith(".yaml") or yaml_file.endswith(".yml"):
-            assert Path(yaml_file).exists(), f"File not found: {yaml_file}"
-            merge_yamls.append(yaml_file)
-        elif yaml_file.startswith("http") or yaml_file.startswith("https"):
-            # TODO
-            pass
-        else:
-            assert yaml_file in CONDA_ENVS, (
-                f"Conda env not found: {yaml_file}"
-                f"Predefined envs including: {CONDA_ENVS}"
-            )
-            merge_yamls.append(env_path / f"{yaml_file}.yml")
+        data = read_yml(yaml_file)
+        env_definitions.extend(get_environments(data))
+    return env_definitions
 
-    # cmds = ["conda-merge"] + [str(y) for y in merge_yamls]
-    # logging.debug(cmds)
 
-    # if merged_yaml.exists():
-    #     if input(f"Will overwrite {merged_yaml}, continue? Y/n").lower() in ["n", "no"]:
-    #         exit
-    # process = subprocess.Popen(cmds, stdout=subprocess.PIPE)
-    # if not dry_run:
-    #     stdout, stderr = process.communicate()
+def parse_cocker(
+    input_file: str, output_file: Path = Path("environment.yml"), dry_run: bool = False
+):
+    data = read_yml(input_file)
 
-    #     yml = yaml.YAML()
-    #     yml.indent(sequence=4, offset=2)
-    #     with open(output_file, "w") as file:
-    #         yml.dump(yaml.safe_load(stdout), file)
-    env_definitions = [read_file(f) for f in merge_yamls]
-    env_definitions.append(data)
+    env_definitions = get_environments(data)
     env_definition = merge_envs(env_definitions)
     stream = open(output_file, "w") if not dry_run else sys.stdout
     return pretty_dump(env_definition, stream)
 
-
-# %%
-
-# parse_cocker(Path("../cocker-dev.yml"), Path("environment.yml"), dry_run=False)
 
 # %%
 
@@ -131,9 +122,13 @@ flags.DEFINE_string(
 
 
 def main(argv):
+    logging.debug(f"argv: {argv}")
+    logging.debug(USER_ENV_PATH)
+    logging.debug(ENV_PATH)
+    logging.debug(f"CONDA_ENVS: {CONDA_ENVS}")
     include_files = argv[1:]
     assert len(include_files) == 1, "Only accept one file now"
-    parse_cocker(Path(include_files[0]), Path(FLAGS.output_file), dry_run=FLAGS.dryrun)
+    parse_cocker(include_files[0], Path(FLAGS.output_file), dry_run=FLAGS.dryrun)
 
 
 def absl_main():

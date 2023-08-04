@@ -1,7 +1,9 @@
 channels:
   - conda-forge
+  - nodefaults
 dependencies:
   - ca-certificates
+  - pynvim
   - certifi
   - openssl
   - ipykernel

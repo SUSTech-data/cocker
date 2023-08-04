@@ -5,12 +5,10 @@ dependencies:
   - ca-certificates
   - certifi
   - conda-merge
-  - hide_code
   - ipykernel
   - ipywidgets
-  - jupyter_contrib_nbextensions
-  - jupytext
-  - notebook=6.5.4
   - openssl
+  - pip
+  - pynvim
   - python=3.10
   - ruamel.yaml

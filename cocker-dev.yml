@@ -1,6 +1,5 @@
 includes:
   - base
-  - notebook
 dependencies:
   - ruamel.yaml
   - conda-merge

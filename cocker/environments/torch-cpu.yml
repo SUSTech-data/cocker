@@ -1,3 +1,5 @@
+includes:
+  - base
 channels:
   - pytorch
   - conda-forge

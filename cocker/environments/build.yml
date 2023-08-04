@@ -1,11 +1,13 @@
 channels:
   - conda-forge
+  - nodefaults
 dependencies:
   - compilers
-  - libaio
   - ca-certificates
   - certifi
   - openssl
-  - xorg-libx11
   - ninja
   - glib
+  - sysroot_linux-64==2.17
+  # - xorg-libx11
+  # - libaio
