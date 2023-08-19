@@ -2,7 +2,7 @@ includes:
   - base
 dependencies:
   - pip:
-    - transformers
+    - transformers[sentencepiece]
     - diffusers
     - datasets
     - evaluate
@@ -10,3 +10,8 @@ dependencies:
     - bitsandbytes
     - safetensors
     - accelerate
+    - tensorboard
+    - wandb
+    - ml_collections
+    - cpm_kernels
+    - dm-tree

@@ -1,14 +1,40 @@
 channels:
+  - dnachun
   - conda-forge
+  - nodefaults
 dependencies:
-  - asbl-py
+  - asciinema
+  - bat
   - ca-certificates
   - certifi
-  - conda-merge
+  - compilers
+  - duf
+  - dust
+  - exa
+  - fd-find
+  - fzf
+  - glib
+  - hide_code
   - ipykernel
   - ipywidgets
+  - jupyter_contrib_nbextensions
+  - jupytext
+  - lazygit
+  - mamba
+  - neofetch
+  - ninja
+  - nodejs
+  - notebook=6.5.4
+  - nvtop
+  - openssh
   - openssl
   - pip
   - pynvim
   - python=3.10
-  - ruamel.yaml
+  - ranger-fm
+  - rust
+  - subversion
+  - sysroot_linux-64==2.17
+  - tmux
+  - zoxide
+  - zsh

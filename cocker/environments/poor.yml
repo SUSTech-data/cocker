@@ -24,3 +24,4 @@ dependencies:
   - nodejs
   - openssh
   - asciinema
+  - pv

@@ -1,0 +1,4 @@
+dependencies:
+  - xeus-lua
+
+# jupyter kernelspec install $CONDA_PREFIX/share/jupyter/kernels/xlua --sys-prefix
