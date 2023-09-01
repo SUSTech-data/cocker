@@ -1,10 +1,12 @@
 includes:
   - notebook
+  - base
   - build
 channels:
   - dnachun
   - conda-forge
 dependencies:
+  - ripgrep
   - mamba
   - zsh
   - rust
@@ -25,3 +27,4 @@ dependencies:
   - openssh
   - asciinema
   - pv
+  - jq

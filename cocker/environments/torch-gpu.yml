@@ -2,6 +2,7 @@ includes:
   - base
 channels:
   - nvidia/label/cuda-11.8.0
+  - nvidia
   - pytorch
   - conda-forge
 dependencies:
