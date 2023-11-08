@@ -5,3 +5,5 @@ dependencies:
   - gcc==11.4
   - py-cpuinfo
   - libaio
+  - pip:
+    - pydantic

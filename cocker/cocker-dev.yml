@@ -1,6 +1,0 @@
-includes:
-  - base
-dependencies:
-  - ruamel.yaml
-  - conda-merge
-  - asbl-py

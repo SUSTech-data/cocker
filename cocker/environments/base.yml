@@ -12,3 +12,6 @@ dependencies:
   - pip
   - nbformat
   - pysnooper
+  - submitit
+  - scikit-learn
+

@@ -1,0 +1,14 @@
+includes:
+  - deepspeed
+  - ipytorch
+  - huggingface
+  - kaggle
+  - openai
+dependencies:
+  - pip:
+      - -e ipytorch/
+      - -e optimus/
+      - optimus/optimus/fused_kernels/
+      - loralib
+      - transformers==4.33.1
+      - transformers_stream_generator
