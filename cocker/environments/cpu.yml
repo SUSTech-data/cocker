@@ -1,7 +1,0 @@
-includes:
-  - torch-cpu
-  - huggingface
-dependencies:
-  - faiss-cpu
-  - pip:
-    - deepspeed

@@ -1,5 +1,4 @@
 includes:
-  - torch-gpu
   - build
 dependencies:
   - gcc==11.4

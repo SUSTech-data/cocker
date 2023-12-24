@@ -1,15 +1,4 @@
 #!/bin/bash
-
-#SBATCH --job-name=any
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1          # crucial - only 1 task per dist per node!
-#SBATCH --cpus-per-task=32 #
-#SBATCH -o /cognitive_comp/zejianxie/outputs/%j-%x.log
-#SBATCH -e /cognitive_comp/zejianxie/outputs/%j-%x.err
-#SBATCH -p pog
-# SBATCH --requeue
-# SBATCH --qos=preemptive
-
 set -ex
 # 首先检查是否提供了环境位置参数
 if [ -z "$1" ]; then
@@ -17,40 +6,27 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
-# export PATH=$CONDA_PREFIX/bin:$PATH
 # pip install git+https://github.com/sustech-data/cocker.git
-# pip install cocker/
-# cocker remote.yml
-# source activate cocker
-# cocker dl.yml
+cocker dl.yml
 mamba env create -f environment.yml -n $1 --force
 source activate $1
 echo $CONDA_PREFIX
-mamba env config vars set -p $CONDA_PREFIX LD_LIBRARY_PATH=$CONDA_PREFIX/lib
-pip install trl --no-deps
+PYTHON_VER=$(python -c 'import sys; ver=sys.version_info; print(f"{ver.major}.{ver.minor}")')
+export CUDNN_PATH=$CONDA_PREFIX/lib/python$PYTHON_VER/site-packages/nvidia/cudnn
+export NVTE_FRAMEWORK=pytorch
+
+mamba env config vars set -p $CONDA_PREFIX LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CUDNN_PATH/lib
+
+bash -c 'cd $CUDNN_PATH/lib && for file in *.so.8; do ln -s "$file" "${file%.8}"; done'
+
+pip install git+https://github.com/NVIDIA/TransformerEngine.git@stable
+# pip install trl --no-deps
 # pip install xformers --no-deps
-pip install flash-attn --no-build-isolation
+pip install flash-attn --no-build-isolation --no-deps --force-reinstall
 # git clone https://github.com/NVIDIA/cutlass --depth 1
 # DS_BUILD_OPS=1 DS_BUILD_SPARSE_ATTN=0 DS_BUILD_EVOFORMER_ATTN=0 pip install --no-binary deepspeed --no-cache-dir deepspeed --global-option="build_ext"
 DS_BUILD_FUSED_ADAM=1 pip install --no-binary deepspeed --no-cache-dir deepspeed --global-option="build_ext"
-
-
-# Link Torch Libs
-SRC_DIR="$CONDA_PREFIX/lib/python3.10/site-packages/torch/lib"
-DEST_DIR="$CONDA_PREFIX/lib"
-if [ ! -d "$SRC_DIR" ]; then
-	echo "源文件夹 $SRC_DIR 不存在!"
-	exit 1
-fi
-
-# 检查目标文件夹是否存在
-if [ ! -d "$DEST_DIR" ]; then
-	echo "目标文件夹 $DEST_DIR 不存在!"
-	exit 1
-fi
-
-# 为目标文件夹中的每一个.so文件创建软链接
-find "$SRC_DIR" -type f -name "*.so" -exec ln -s {} "$DEST_DIR" \;
-echo "链接完成!"
+# pip install https://github.com/vllm-project/vllm/releases/download/v0.2.2/vllm-0.2.2+cu118-cp310-cp310-manylinux1_x86_64.whl --no-deps
+# pip install xformers==0.0.22.post4 --index-url https://download.pytorch.org/whl/cu118 --no-deps
 ds_report
 python -m torch.utils.collect_env

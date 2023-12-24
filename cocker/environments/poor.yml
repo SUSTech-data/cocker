@@ -3,8 +3,8 @@ includes:
   - base
   - build
 channels:
-  - dnachun
   - conda-forge
+  - dnachun
 dependencies:
   - ripgrep
   - mamba
@@ -28,3 +28,6 @@ dependencies:
   - asciinema
   - pv
   - jq
+  - yarn
+  - tree
+  - R

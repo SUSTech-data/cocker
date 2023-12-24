@@ -4,11 +4,19 @@ includes:
   - huggingface
   - kaggle
   - openai
+  - torch-gpu
+  - TransformerEngine
 dependencies:
+  - shap
+  - scikit-learn
   - pip:
       - -e ipytorch/
       - -e optimus/
       - optimus/optimus/fused_kernels/
       - loralib
-      - transformers==4.33.1
       - transformers_stream_generator
+      - opencc-python-reimplemented
+      - blingfire
+      - sortedcontainers
+      - git+https://github.com/hendrycks/math.git
+      - wolframclient
