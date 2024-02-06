@@ -14,7 +14,7 @@ echo $CONDA_PREFIX
 PYTHON_VER=$(python -c 'import sys; ver=sys.version_info; print(f"{ver.major}.{ver.minor}")')
 export CUDNN_PATH=$CONDA_PREFIX/lib/python$PYTHON_VER/site-packages/nvidia/cudnn
 export NVTE_FRAMEWORK=pytorch
-
+export MAMBA_NO_LOW_SPEED_LIMIT=1
 mamba env config vars set -p $CONDA_PREFIX LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CUDNN_PATH/lib
 
 bash -c 'cd $CUDNN_PATH/lib && for file in *.so.8; do ln -s "$file" "${file%.8}"; done'
@@ -30,7 +30,7 @@ bash -c 'cd $CUDNN_PATH/lib && for file in *.so.8; do ln -s "$file" "${file%.8}"
 
 # git clone https://github.com/NVIDIA/cutlass --depth 1
 # DS_BUILD_OPS=1 DS_BUILD_SPARSE_ATTN=0 DS_BUILD_EVOFORMER_ATTN=0 pip install --no-binary deepspeed --no-cache-dir deepspeed --global-option="build_ext"
-# DS_BUILD_FUSED_ADAM=1 pip install --no-binary deepspeed --no-cache-dir deepspeed --global-option="build_ext"
+DS_BUILD_FUSED_ADAM=1 pip install --no-binary deepspeed --no-cache-dir deepspeed --global-option="build_ext"
 pip install deepspeed
 # pip install https://github.com/vllm-project/vllm/releases/download/v0.2.2/vllm-0.2.2+cu118-cp310-cp310-manylinux1_x86_64.whl --no-deps
 # pip install xformers==0.0.22.post4 --index-url https://download.pytorch.org/whl/cu118 --no-deps
