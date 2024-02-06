@@ -31,3 +31,4 @@ dependencies:
   - yarn
   - tree
   - atuin
+  - git
