@@ -1,16 +1,60 @@
 from conda_merge import *
 from ruamel import yaml
 from pathlib import Path
+import itertools
 
 from absl import app, flags, logging
 import os
 import sys
+from tqdm.auto import tqdm
 
 
 # %%
 
 
 Environment = dict
+
+
+def _remove_build(dep):
+    """Remove build version if exists, return dep"""
+    m = re.match(r"([^=]+=[^=]+)=([^=]+)$", dep, re.IGNORECASE)
+    return m.group(1) if m else dep
+
+
+def merge_dependencies(deps_list, remove_builds=False):
+    """Merge all dependencies to one list and return it.
+
+    Two overlapping dependencies (e.g. package-a and package-a=1.0.0) are not
+    unified, and both are left in the list (except cases of exactly the same
+    dependency). Conda itself handles that very well so no need to do this ourselves,
+    unless you want to prettify the output by hand.
+
+    """
+    only_pips = []
+    unified_deps = []
+    for deps in deps_list:
+        if deps is None:  # not found in this environment definition
+            continue
+        for dep in deps:
+            if isinstance(dep, dict) and dep["pip"]:
+                only_pips.append(dep["pip"])
+            else:
+                if remove_builds:
+                    dep = _remove_build(dep)
+                if dep not in unified_deps:
+                    unified_deps.append(dep)
+    unified_deps = sorted(unified_deps)
+    if only_pips:
+        unified_deps.append(merge_pips(only_pips))
+    return unified_deps
+
+
+def merge_pips(pip_list):
+    """Merge pip requirements lists the same way as `merge_dependencies` work"""
+    # return {"pip": ({req for reqs in pip_list for req in reqs})}
+    all_pip = list(itertools.chain(*pip_list))
+    # return {"pip": pd.Series(all_pip).drop_duplicates().tolist()}
+    return {"pip": list(dict.fromkeys(all_pip))}
 
 
 def merge_envs(env_definitions: list[Environment], remove_builds=True) -> Environment:
@@ -84,9 +128,17 @@ def read_yml(yaml_file: str) -> Environment:
         return read_file(ENV_PATH / f"{yaml_file}.yml")
 
 
-def get_environments(data: Environment) -> list[Environment]:
-    yamls: list[str] = data.pop("includes", [])
-    env_definitions = [data]
+def get_environments(data: Environment | list) -> list[Environment]:
+    match data:
+        case dict():
+            yamls: list[str] = data.pop("includes", [])
+            env_definitions = [data]
+        case list():
+            yamls = data
+            env_definitions = []
+        case str():
+            yamls = [data]
+            env_definitions = []
     for yaml_file in yamls:
         data = read_yml(yaml_file)
         env_definitions.extend(get_environments(data))
@@ -94,13 +146,25 @@ def get_environments(data: Environment) -> list[Environment]:
 
 
 def parse_cocker(
-    input_file: str, output_file: Path = Path("environment.yml"), dry_run: bool = False
+    input_files: str | list[str],
+    output_file: Path = Path("environment.yml"),
+    dry_run: bool = False,
 ):
-    data = read_yml(input_file)
+    # data = read_yml(input_file)
 
-    env_definitions = get_environments(data)
+    env_definitions = get_environments(input_files)
     env_definition = merge_envs(env_definitions)
     stream = open(output_file, "w") if not dry_run else sys.stdout
+    deps_wt_pips = []
+    pip_deps = None
+    for dep in env_definition.get("dependencies", []):
+        if isinstance(dep, dict) and "pip" in dep:
+            pip_deps = dep["pip"]
+        else:
+            deps_wt_pips.append(dep)
+    env_definition["dependencies"] = deps_wt_pips
+    open(Path(output_file).parent / "requirements.txt", "w").write("\n".join(pip_deps))
+
     return pretty_dump(env_definition, stream)
 
 
@@ -122,13 +186,11 @@ flags.DEFINE_string(
 
 
 def main(argv):
-    logging.debug(f"argv: {argv}")
-    logging.debug(USER_ENV_PATH)
-    logging.debug(ENV_PATH)
-    logging.debug(f"CONDA_ENVS: {CONDA_ENVS}")
+    logging.debug(f"{argv=}")
     include_files = argv[1:]
-    assert len(include_files) == 1, "Only accept one file now"
-    parse_cocker(include_files[0], Path(FLAGS.output_file), dry_run=FLAGS.dryrun)
+    logging.debug(f"{include_files=}")
+    assert len(include_files) >= 1, "Environment file is required."
+    parse_cocker(include_files, Path(FLAGS.output_file), dry_run=FLAGS.dryrun)
 
 
 def absl_main():
