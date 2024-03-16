@@ -1,0 +1,38 @@
+-e ipytorch/
+-e platformers/
+git+https://github.com/hendrycks/math.git
+loralib
+transformers_stream_generator
+opencc-python-reimplemented
+blingfire
+sortedcontainers
+wolframclient
+modelscope
+confluent-kafka
+tensorflow==2.13
+pytorch-ignite
+pydantic
+git+https://github.com/google/ml_collections.git
+openai
+tiktoken
+tenacity
+nvidia-cudnn-cu11
+transformers[sentencepiece]
+diffusers
+datasets
+evaluate
+peft
+bitsandbytes
+safetensors
+accelerate
+tensorboard
+wandb
+cpm_kernels
+dm-tree
+gradio
+aioprometheus[starlette]
+fastapi
+uvicorn[standard]
+ray
+https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.3/flash_attn-2.5.3+cu118torch2.1cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+-v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers

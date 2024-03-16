@@ -14,4 +14,4 @@ dependencies:
   - snoop
   # - submitit
   - scikit-learn
-
+  - protobuf

@@ -1,8 +1,0 @@
-includes:
-  - build
-# channels:
-#   - nvidia
-dependencies:
-  - cmake
-  - pip:
-    - nvidia-cudnn-cu12

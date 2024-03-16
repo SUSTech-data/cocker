@@ -12,4 +12,4 @@ dependencies:
   - cuda
   - pytorch-cuda=11.8
   - pip:
-    - nvidia-cudnn-cu11
+      - nvidia-cudnn-cu11

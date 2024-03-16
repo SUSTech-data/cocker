@@ -1,0 +1,17 @@
+includes:
+  - base
+channels:
+  - conda-forge
+dependencies:
+  - ipywidgets
+  - jupytext
+  - jupyter-cache
+  - jupyterlab
+  - jupyterlab-lsp
+  - jupyter-collaboration
+  - jupyterlab-language-pack-zh-cn
+  - jupyterlab-nvdashboard
+  - python-lsp-server
+  - pip:
+    - neopyter
+    - catppuccin-jupyterlab

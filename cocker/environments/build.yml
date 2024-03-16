@@ -9,5 +9,6 @@ dependencies:
   - ninja
   - glib
   - sysroot_linux-64==2.17
+  - cmake
   # - xorg-libx11
   # - libaio

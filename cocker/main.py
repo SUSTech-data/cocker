@@ -163,7 +163,10 @@ def parse_cocker(
         else:
             deps_wt_pips.append(dep)
     env_definition["dependencies"] = deps_wt_pips
-    open(Path(output_file).parent / "requirements.txt", "w").write("\n".join(pip_deps))
+    if pip_deps:
+        open(Path(output_file).parent / "requirements.txt", "w").write(
+            "\n".join(pip_deps)
+        )
 
     return pretty_dump(env_definition, stream)
 

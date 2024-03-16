@@ -1,27 +1,26 @@
 includes:
   - deepspeed
   - ipytorch
-  - huggingface
-  - kaggle
   - openai
   - torch-gpu
+  - huggingface
+  - polars
+  - cv
+  - google
   # - TransformerEngine
 dependencies:
   - nccl
   - shap
-  - scikit-learn
   - pip:
       - -e ipytorch/
       - -e platformers/
-      # - -e optimus/
-      # - optimus/optimus/fused_kernels/
       # - flash-attention/csrc/layer_norm/
-      - git+https://github.com/hendrycks/math.git
-      - loralib
-      - transformers_stream_generator
+      # - git+https://github.com/hendrycks/math.git
+      # - loralib
+      # - transformers_stream_generator
       - opencc-python-reimplemented
       - blingfire
-      - sortedcontainers
       - wolframclient
       - modelscope
       - confluent-kafka
+      - pytorch-ignite

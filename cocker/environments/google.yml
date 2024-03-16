@@ -1,0 +1,12 @@
+includes:
+  - base
+dependencies:
+  - pip:
+      - tensorflow==2.13
+      - jax[cuda11_pip] -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+      - flax
+      - optax
+      - chex
+      - einops
+      - tux@git+https://github.com/lhao499/tux.git
+      - decord
