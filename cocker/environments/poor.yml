@@ -32,3 +32,4 @@ dependencies:
   - tree
   - atuin
   - git
+  - ncdu

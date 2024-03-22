@@ -1,5 +1,3 @@
-includes:
-  - base
 dependencies:
   - conda-forge:ffmpeg
   - opencv

@@ -1,7 +1,0 @@
-includes:
-  - base
-channels:
-  - conda-forge
-dependencies:
-  - poetry
-  - twine

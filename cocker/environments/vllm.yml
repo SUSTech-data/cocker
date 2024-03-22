@@ -10,5 +10,3 @@ dependencies:
       - fastapi
       - uvicorn[standard]
       - ray
-      - https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.3/flash_attn-2.5.3+cu118torch2.1cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
-      - -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers
