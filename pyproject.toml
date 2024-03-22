@@ -9,6 +9,7 @@ readme = "README.md"
 python = ">=3.6"
 absl-py = "^1.4.0"
 conda-merge = "*"
+tqdm = "*"
 "ruamel.yaml" = "*"
 
 

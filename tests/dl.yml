@@ -1,19 +1,21 @@
 includes:
   - deepspeed
-  - ipytorch
   - openai
   - torch-gpu
   - huggingface
-  - polars
   - cv
   - google
-  # - TransformerEngine
+# - TransformerEngine
 dependencies:
   - nccl
   - shap
+  - polarify
+  - mpi4py
+  - ipykernel=6.28
   - pip:
       - -e ipytorch/
       - -e platformers/
+      - git+https://github.com/google/ml_collections.git
       # - flash-attention/csrc/layer_norm/
       # - git+https://github.com/hendrycks/math.git
       # - loralib
