@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.6"
-absl-py = "^1.4.0"
+absl-py = "*"
 conda-merge = "*"
 tqdm = "*"
 "ruamel.yaml" = "*"

@@ -31,4 +31,5 @@ dependencies:
   - tree
   - atuin
   - git
+  - git-lfs
   - ncdu

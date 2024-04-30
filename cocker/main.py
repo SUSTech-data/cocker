@@ -129,16 +129,16 @@ def read_yml(yaml_file: str) -> Environment:
 
 
 def get_environments(data: Environment | list) -> list[Environment]:
-    match data:
-        case dict():
-            yamls: list[str] = data.pop("includes", [])
-            env_definitions = [data]
-        case list():
-            yamls = data
-            env_definitions = []
-        case str():
-            yamls = [data]
-            env_definitions = []
+    # match data:
+    if isinstance(data, dict):
+        yamls: list[str] = data.pop("includes", [])
+        env_definitions = [data]
+    if isinstance(data, list):
+        yamls = data
+        env_definitions = []
+    if isinstance(data, str):
+        yamls = [data]
+        env_definitions = []
     for yaml_file in yamls:
         data = read_yml(yaml_file)
         env_definitions.extend(get_environments(data))
