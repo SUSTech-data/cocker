@@ -4,6 +4,5 @@ dependencies:
   - yt-dlp
   - pip:
       - ffmpegio
-      - s3fs
-      - minio
       - imageio[ffmpeg]
+      - decord

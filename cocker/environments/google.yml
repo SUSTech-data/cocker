@@ -1,5 +1,3 @@
-includes:
-  - base
 dependencies:
   - pip:
       - tensorflow==2.13
@@ -9,4 +7,3 @@ dependencies:
       - chex
       - einops
       - tux@git+https://github.com/lhao499/tux.git
-      - decord

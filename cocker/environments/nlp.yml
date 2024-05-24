@@ -1,0 +1,10 @@
+dependencies:
+  - pip:
+    - openai
+    - tiktoken
+    - tenacity
+    - opencc-python-reimplemented
+    - blingfire
+    - spacy
+    - spacy_fastlang
+    - thefuzzy[speedup]

@@ -4,3 +4,4 @@ dependencies:
   - r-tidyverse
   - r-rmarkdown
   - r-reticulate
+  - r-devtools

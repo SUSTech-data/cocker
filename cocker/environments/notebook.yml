@@ -8,3 +8,4 @@ dependencies:
   - ipywidgets
   - jupytext
   - jupyter-cache
+  - plotly

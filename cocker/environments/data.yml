@@ -1,0 +1,12 @@
+dependencies:
+  - polarify
+  - pip:
+      - git+https://github.com/ucloud/ufile-sdk-python.git
+      - confluent-kafka
+      - atomics
+      - psycopg
+      - psycopg2
+      - sqlalchemy
+      - universal_pathlib
+      - s3fs
+      - minio

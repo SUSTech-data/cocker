@@ -3,30 +3,23 @@ includes:
   - openai
   - torch-cu11
   - huggingface
-  - cv
   - google
+  - cv
+  - data
+  - nlp
 # - TransformerEngine
 dependencies:
   - nccl
   - shap
-  - polarify
   - mpi4py
   - mpich
   - ipykernel=6.28
-  - plotly
   - pip:
       - -e ipytorch/
       - -e platformers/
       - git+https://github.com/google/ml_collections.git
-      # - flash-attention/csrc/layer_norm/
       # - git+https://github.com/hendrycks/math.git
       # - loralib
-      # - transformers_stream_generator
-      - opencc-python-reimplemented
-      - blingfire
       - wolframclient
       - modelscope
-      - confluent-kafka
       - pytorch-ignite
-      - atomics
-      - psycopg2
