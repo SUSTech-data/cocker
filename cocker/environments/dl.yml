@@ -10,16 +10,17 @@ includes:
 # - TransformerEngine
 dependencies:
   - nccl
-  - shap
+  # - shap
   - mpi4py
-  - mpich
+  # - mpich
+  - openmpi
   - ipykernel=6.28
   - pip:
-      - -e ipytorch/
-      - -e platformers/
       - git+https://github.com/google/ml_collections.git
+      - colorlog
       # - git+https://github.com/hendrycks/math.git
       # - loralib
       - wolframclient
       - modelscope
       - pytorch-ignite
+      - determined

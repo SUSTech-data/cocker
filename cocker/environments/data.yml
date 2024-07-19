@@ -1,12 +1,17 @@
 dependencies:
   - polarify
+  - mysqlclient
   - pip:
-      - git+https://github.com/ucloud/ufile-sdk-python.git
+      # - git+https://github.com/ucloud/ufile-sdk-python.git
       - confluent-kafka
       - atomics
-      - psycopg
+      - psycopg[pool]
       - psycopg2
       - sqlalchemy
       - universal_pathlib
       - s3fs
       - minio
+      - pydoris
+      - pgpq
+      - pulsar-client[all]
+      - etcd3

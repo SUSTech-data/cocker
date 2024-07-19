@@ -11,3 +11,5 @@ dependencies:
   - torchaudio
   - cuda
   - pytorch-cuda=12.1
+  - pip:
+      - nvidia-cudnn-cu12

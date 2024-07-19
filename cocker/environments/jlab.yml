@@ -13,5 +13,5 @@ dependencies:
   - jupyterlab-nvdashboard
   - python-lsp-server
   - pip:
-    - neopyter
+    # - neopyter
     - catppuccin-jupyterlab

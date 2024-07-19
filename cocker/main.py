@@ -7,6 +7,7 @@ from absl import app, flags, logging
 import os
 import sys
 from tqdm.auto import tqdm
+import re
 
 
 # %%
@@ -162,11 +163,13 @@ def parse_cocker(
             pip_deps = dep["pip"]
         else:
             deps_wt_pips.append(dep)
-    env_definition["dependencies"] = deps_wt_pips
-    if pip_deps:
-        open(Path(output_file).parent / "requirements.txt", "w").write(
-            "\n".join(pip_deps)
-        )
+    if not FLAGS.standalone:
+        logging.info("output two files")
+        env_definition["dependencies"] = deps_wt_pips
+        if pip_deps:
+            open(Path(output_file).parent / "requirements.txt", "w").write(
+                "\n".join(pip_deps)
+            )
 
     return pretty_dump(env_definition, stream)
 
@@ -186,6 +189,7 @@ flags.DEFINE_string("name", "cocker", "name of conda environment", short_name="n
 flags.DEFINE_string(
     "output_file", "environment.yml", "name of conda environment", short_name="o"
 )
+flags.DEFINE_bool("standalone", False, "keep in a yml", short_name="s")
 
 
 def main(argv):

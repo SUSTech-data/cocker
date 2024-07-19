@@ -1,6 +1,5 @@
 includes:
   - notebook
-  - base
   - build
 channels:
   - conda-forge
@@ -15,7 +14,6 @@ dependencies:
   - fd-find
   - lazygit
   - neofetch
-  - dust
   - duf
   - tmux
   - zoxide
@@ -33,3 +31,4 @@ dependencies:
   - git
   - git-lfs
   - ncdu
+  - just
